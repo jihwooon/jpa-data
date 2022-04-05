@@ -24,17 +24,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m.username from Member m")
     List<String> findUsernameList();
 
-    //DTO 반환 하는 문법
     @Query("select new study.datajpa.dto.MemberDto(m.id, m.username, t.name) from Member m join m.team t")
     List<MemberDto> findMemberDto();
 
     @Query("select m from Member m where m.username in :names")
     List<Member> findByNames(@Param("names") Collection<String> names);
 
-
     List<Member> findListByUsername(String username); // 컬렉션
 
     Member findMemberByUsername(String username); // 단건 조회
 
     Optional<Member> findOptionalByUsername(String username); // 단건 Optional
+
+
 }
