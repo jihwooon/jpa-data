@@ -3,6 +3,7 @@ package study.datajpa.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -10,11 +11,11 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "username", "age"})
 @NamedQuery(
-        name ="Member.findByUsername",
+        name = "Member.findByUsername",
         query = "select m from Member m where m.username = :username"
 )
 @NamedEntityGraph(name = "Member.all", attributeNodes = @NamedAttributeNode("team"))
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -22,6 +23,7 @@ public class Member {
     private Long id;
     private String username;
     private int age;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
